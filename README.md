@@ -3,11 +3,12 @@ node-openalpr
 
 This package binds [OpenALPR](https://github.com/openalpr/openalpr) with Node.js
 
-Version: 1.0.9 - Released September 4th, 2015
+Version: 1.1.0 - Released January 4th, 2016
 
 ```
 Changelog:
 
+1.1.0   - Updated OpenALPR to version 2.2, should fix Linux and OSX builds
 1.0.9	- Updated OpenALPR build and US region data
 1.0.7	- Added the capability to specify regions
 1.0.6	- Slowed down the event loop to 30 times per second
@@ -28,6 +29,13 @@ that's not possible we'll fallback to precompiled binaries.
 ### Windows
 0. Run ```npm install node-openalpr```
 
+### OS X
+0. Install OpenALPR
+	- [OpenALPR](https://github.com/openalpr/openalpr/wiki/Compilation-instructions-(OS-X))
+	- using Homebrew(openalpr v2.2.0)
+0. Run ```npm install node-openalpr```
+
+
 ### Example
 
 ```javascript
@@ -35,7 +43,8 @@ var openalpr = require ("node-openalpr");
 
 function identify (id, path) {
 	console.log (openalpr.IdentifyLicense (path, function (error, output) {
-		console.log (id +" "+ output.processing_time_ms);
+		var results = output.results;
+        console.log (id +" "+ output.processing_time_ms +" "+ ((results.length > 0) ? results[0].plate : "No results"));
 	
 		if (id == 349) {
 			console.log (openalpr.Stop ());
@@ -78,6 +87,7 @@ This is a breakdown of all of the methods available for node-openalpr. Start nee
 
 0. [Download and install io.js v3.0.0+](https://iojs.org/en/index.html)
 0. [Download and install git](https://git-scm.com/downloads)
+0. [Download and install cmake](https://cmake.org/download/)
 
 #### Windows
 
